@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install --no-cache-dir fastapi uvicorn numpy openai
-
-EXPOSE 7860
+RUN pip install fastapi uvicorn numpy openai
 
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
