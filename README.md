@@ -2,8 +2,11 @@
 title: RL Warehouse
 emoji: 🤖
 colorFrom: blue
-colorTo: purple
+colorTo: green
 sdk: docker
-app_file: app.py
-pinned: false
+app_port: 7860
 ---
+
+# RL Warehouse API
+
+This is a FastAPI app.
