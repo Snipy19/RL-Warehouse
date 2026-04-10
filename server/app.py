@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from inference import run_llm
 
 app = FastAPI()
 
@@ -21,13 +22,20 @@ def reset():
 @app.post("/step")
 def step(action: Action):
     global state
+
+    
+    llm_output = run_llm()
+
     state["position"] += action.action
+
     reward = 1 if state["position"] > 5 else 0
     done = state["position"] > 10
+
     return {
         "state": state,
         "reward": reward,
-        "done": done
+        "done": done,
+        "llm": llm_output
     }
 
 @app.get("/state")
