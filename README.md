@@ -3,7 +3,7 @@ title: RL Warehouse Optimization
 emoji: 🚀
 colorFrom: blue
 colorTo: purple
-sdk: python
+sdk: docker
 app_file: inference.py
 ---
 
