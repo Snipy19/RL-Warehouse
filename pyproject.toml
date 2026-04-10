@@ -2,15 +2,17 @@
 name = "rl-warehouse"
 version = "0.1.0"
 description = "RL Warehouse OpenEnv project"
-authors = [
-    {name = "Snipy19"}
-]
+authors = [{name = "Snipy19"}]
+
 dependencies = [
     "fastapi",
     "uvicorn",
     "numpy",
-    "openai"
+    "openenv==0.1.13"
 ]
+
+[project.scripts]
+server = "app:app"
 
 [build-system]
 requires = ["setuptools", "wheel"]
