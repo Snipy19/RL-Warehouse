@@ -1,0 +1,17 @@
+[project]
+name = "rl-warehouse"
+version = "0.1.0"
+description = "RL Warehouse OpenEnv project"
+authors = [
+    {name = "Snipy19"}
+]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "numpy",
+    "openai"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
