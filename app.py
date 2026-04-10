@@ -1,17 +1,38 @@
-print("🔥 APP.PY RUNNING")
-
 from fastapi import FastAPI
-import uvicorn
+from pydantic import BaseModel
 
 app = FastAPI()
 
+state = {"position": 0}
+
+class Action(BaseModel):
+    action: int
+
 @app.get("/")
 def home():
-    return {"status": "RUNNING OK"}
+    return {"status": "running"}
 
-@app.get("/run")
-def run():
-    return {"msg": "WORKING"}
+# ✅ RESET
+@app.post("/reset")
+def reset():
+    global state
+    state = {"position": 0}
+    return {"state": state}
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=7860)
+# ✅ STEP
+@app.post("/step")
+def step(action: Action):
+    global state
+    state["position"] += action.action
+    reward = 1 if state["position"] > 5 else 0
+    done = state["position"] > 10
+    return {
+        "state": state,
+        "reward": reward,
+        "done": done
+    }
+
+# ✅ STATE
+@app.get("/state")
+def get_state():
+    return state
