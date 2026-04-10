@@ -1,13 +1,29 @@
-# RL Warehouse Optimization using LLM
+# RL Warehouse Optimization using LLM Evaluation
 
-This project simulates a warehouse navigation task where an agent moves from start to goal.
+## Overview
+This project simulates a reinforcement learning-based warehouse optimization system. 
+Tasks such as path planning, obstacle avoidance, and multi-agent coordination are evaluated.
 
-Key Features:
-- LLM-guided decision making
-- Obstacle avoidance
-- Reward-based scoring
-- Multi-task evaluation
+## Approach
+- Each task simulates a warehouse optimization problem
+- Reward is generated dynamically
+- LLM is used for evaluation through provided proxy
+- Structured outputs ensure validation compatibility
 
-The agent dynamically chooses actions using an LLM and adapts to obstacles.
+## Tasks
+1. Path Planning
+2. Obstacle Avoidance
+3. Reward Optimization
+4. Multi-Agent Coordination
+5. Efficiency Analysis
 
-This demonstrates a hybrid approach combining reinforcement learning concepts with LLM reasoning.
+## Scoring
+Each task produces a score between (0,1) ensuring valid evaluation.
+
+## Tech Stack
+- Python
+- OpenAI API (via proxy)
+- HuggingFace Spaces
+
+## Key Highlight
+Efficient integration of LLM-based evaluation with structured RL simulation.
