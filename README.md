@@ -1,12 +1,13 @@
----
-title: RL Warehouse
-emoji: 🤖
-colorFrom: blue
-colorTo: green
-sdk: docker
-app_port: 7860
----
+# RL Warehouse Optimization using LLM
 
-# RL Warehouse API
+This project simulates a warehouse navigation task where an agent moves from start to goal.
 
-This is a FastAPI app.
+Key Features:
+- LLM-guided decision making
+- Obstacle avoidance
+- Reward-based scoring
+- Multi-task evaluation
+
+The agent dynamically chooses actions using an LLM and adapts to obstacles.
+
+This demonstrates a hybrid approach combining reinforcement learning concepts with LLM reasoning.
