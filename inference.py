@@ -1,77 +1,112 @@
 import os
 from openai import OpenAI
 
+# LLM client (MANDATORY)
 client = OpenAI(
     base_url=os.environ.get("API_BASE_URL"),
     api_key=os.environ.get("API_KEY")
 )
 
-def normalize_score(value):
-    """
-    Ensure score strictly between (0,1)
-    """
-    if value <= 0:
-        return 0.1
-    if value >= 1:
-        return 0.9
-    return round(value, 2)
+# LLM decides movement
+def get_action(x, y, gx, gy, obstacles):
+    prompt = f"""
+    You are a warehouse robot.
 
+    Current position: ({x},{y})
+    Goal: ({gx},{gy})
+    Obstacles: {obstacles}
 
-def evaluate_with_llm(task_name, reward):
+    Choose ONLY one move:
+    up / down / left / right
     """
-    LLM-based scoring (core logic)
-    """
+
     try:
-        response = client.chat.completions.create(
+        res = client.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are an evaluator. Return ONLY a number between 0 and 1."
-                },
-                {
-                    "role": "user",
-                    "content": f"Task: {task_name}, Reward: {reward}. Give a score between 0 and 1."
-                }
-            ],
-            max_tokens=10
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=5
         )
 
-        text = response.choices[0].message.content.strip()
-
-        # extract float
-        score = float(''.join(c for c in text if c.isdigit() or c == '.'))
+        move = res.choices[0].message.content.lower()
 
     except:
-        # deterministic fallback 
-        score = reward * 0.8
+        move = "right"
 
-    return normalize_score(score)
-
-
-def run_task(task_name, base_reward):
-    print(f"[START] task={task_name}", flush=True)
-
-    reward = base_reward
-    print(f"[STEP] step=1 reward={reward}", flush=True)
-
-    score = evaluate_with_llm(task_name, reward)
-
-    print(f"[END] task={task_name} score={score} steps=1", flush=True)
+    return move
 
 
+# Apply movement
+def move_agent(x, y, action):
+    if "right" in action:
+        return x + 1, y
+    elif "left" in action:
+        return x - 1, y
+    elif "up" in action:
+        return x, y + 1
+    elif "down" in action:
+        return x, y - 1
+    return x, y
+
+
+# Task simulation
+def run_task(name, start, goal, obstacles):
+    print(f"[START] task={name}", flush=True)
+
+    x, y = start
+    gx, gy = goal
+
+    steps = 0
+    max_steps = 8
+
+    while (x, y) != (gx, gy) and steps < max_steps:
+        steps += 1
+
+        action = get_action(x, y, gx, gy, obstacles)
+        nx, ny = move_agent(x, y, action)
+
+        # obstacle check
+        if (nx, ny) in obstacles:
+            nx, ny = x, y  # stay if blocked
+
+        x, y = nx, ny
+
+        reward = round(1 / (steps + 1), 2)
+        print(f"[STEP] step={steps} reward={reward}", flush=True)
+
+    # scoring (efficiency based)
+    score = 1 - (steps / max_steps)
+
+    # strict range fix
+    if score <= 0:
+        score = 0.01
+    if score >= 1:
+        score = 0.99
+
+    print(f"[END] task={name} score={round(score,2)} steps={steps}", flush=True)
+
+
+# Main execution
 def main():
-    # deterministic rewards 
-    tasks = [
-        ("path_planning", 0.72),
-        ("obstacle_avoidance", 0.65),
-        ("reward_optimization", 0.81),
-        ("multi_agent_coordination", 0.74),
-        ("efficiency_analysis", 0.69)
-    ]
+    run_task(
+        "easy_navigation",
+        start=(0, 0),
+        goal=(2, 2),
+        obstacles=[(1, 1)]
+    )
 
-    for task_name, reward in tasks:
-        run_task(task_name, reward)
+    run_task(
+        "medium_navigation",
+        start=(0, 0),
+        goal=(4, 3),
+        obstacles=[(2, 2), (3, 1)]
+    )
+
+    run_task(
+        "hard_navigation",
+        start=(1, 1),
+        goal=(6, 5),
+        obstacles=[(2, 2), (3, 3), (4, 4)]
+    )
 
 
 if __name__ == "__main__":
