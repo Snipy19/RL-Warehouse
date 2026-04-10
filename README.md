@@ -1,3 +1,12 @@
+---
+title: RL Warehouse Optimization
+emoji: 🚀
+colorFrom: blue
+colorTo: purple
+sdk: python
+app_file: inference.py
+---
+
 # RL Warehouse Optimization using LLM Evaluation
 
 ## Overview
@@ -18,7 +27,7 @@ Tasks such as path planning, obstacle avoidance, and multi-agent coordination ar
 5. Efficiency Analysis
 
 ## Scoring
-Each task produces a score between (0,1) ensuring valid evaluation.
+Each task produces a score strictly between (0,1) ensuring valid evaluation.
 
 ## Tech Stack
 - Python
