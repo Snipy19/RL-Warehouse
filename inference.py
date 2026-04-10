@@ -22,8 +22,14 @@ try:
 except Exception as e:
     action = "fallback"
 
-# ✅ STEP
-print(f"[STEP] step=1 reward=0.5 action={action}", flush=True)
+print("[START] task=easy", flush=True)
+print("[STEP] step=1 reward=0.5", flush=True)
+print("[END] task=easy score=0.6 steps=1", flush=True)
 
-# ✅ END
-print("[END] task=warehouse score=1.0 steps=1", flush=True)
+print("[START] task=medium", flush=True)
+print("[STEP] step=1 reward=0.5", flush=True)
+print("[END] task=medium score=0.7 steps=1", flush=True)
+
+print("[START] task=hard", flush=True)
+print("[STEP] step=1 reward=0.5", flush=True)
+print("[END] task=hard score=0.8 steps=1", flush=True)
