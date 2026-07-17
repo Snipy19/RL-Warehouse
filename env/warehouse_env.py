@@ -25,7 +25,7 @@ class WarehouseEnv:
 
         moves = {0: (-1,0), 1:(1,0), 2:(0,-1), 3:(0,1)}
 
-        # 🔥 stochastic action (KEY)
+        # stochastic action (KEY)
         if random.random() < 0.15:
             action = random.randint(0, 3)
 
