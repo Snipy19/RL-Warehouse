@@ -59,6 +59,8 @@ server/app.py
     └── FastAPI service for reset, step, state, and health checks
 ```
 
+For a detailed walkthrough and interview preparation, see [docs/INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md).
+
 ## Requirements
 
 - Python 3.10 or newer
@@ -164,9 +166,3 @@ This is a simulated grid navigation benchmark. It does not represent a productio
 ## License
 
 This project is released under the MIT License.
-
-- Tabular Q-learning with epsilon-greedy exploration
-- Configurable grid size, episode limit, random seed, and action stochasticity
-- Deterministic task seeds for comparable benchmark runs
-- FastAPI and Docker deployment path
-- No external LLM dependency in the reproducible evaluation loop
