@@ -59,7 +59,6 @@ server/app.py
     └── FastAPI service for reset, step, state, and health checks
 ```
 
-For a detailed walkthrough and interview preparation, see [docs/INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md).
 
 ## Requirements
 
