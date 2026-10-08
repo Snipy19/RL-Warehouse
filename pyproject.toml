@@ -1,0 +1,24 @@
+[project]
+name = "warehouse-rl-optimization"
+version = "0.1.0"
+description = "Reproducible reinforcement learning benchmark for warehouse navigation"
+authors = [{name = "Snipy19"}]
+requires-python = ">=3.10"
+
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "numpy"
+]
+
+[project.scripts]
+warehouse-api = "server.app:main"
+warehouse-benchmark = "benchmark:main"
+
+[tool.setuptools]
+packages = ["agent", "baseline", "env", "server"]
+py-modules = ["benchmark", "inference"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
